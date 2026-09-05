@@ -11,6 +11,16 @@ fn main() -> std::io::Result<()> {
     let user_name = whoami::account().unwrap_or_else(|_| "<unknown>".to_string());
     let computer_name = whoami::devicename().unwrap_or_else(|_| "<unknown>".to_string());
 
+    // Funny Ascii-art
+    println!("Welcome to...");
+    println!(r"         ___           ___    _____    ___ 
+        (  _`\        (  _`\ (  _  ) /'_  )
+        | ( (_)   _ _ | ( (_)| ( ) |(_)_) |
+        | |  _  /'_` )| |  _ | | | | _(_ < 
+        | (_( )( (_| || (_( )| (_) |( )_) |
+        (____/'`\__,_)(____/'(_____)`\____)");
+    println!("      The world's worst shell! Made by UnfamilarFork\n");
+
     // main loop
     loop {
         // get the user's current directory
@@ -52,5 +62,6 @@ fn main() -> std::io::Result<()> {
             println!("That function was not found.")
         }
     }
+    println!("See ya next time!");
     Ok(())
 }
