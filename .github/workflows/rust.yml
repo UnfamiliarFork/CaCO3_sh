@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: cd caco3_sh && cargo build --verbose
     - name: Upload Artifacts
-      run: zip -r bin.zip caco3_sh/target/debug/
+      run: cd caco3_sh/target/ && zip -r bin.zip /debug/
     - uses: actions/upload-artifact@v7
       with: 
         path: bin.zip

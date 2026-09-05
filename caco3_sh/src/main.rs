@@ -2,6 +2,8 @@ use std::env;
 use std::io::{self, Write};
 // Library that lets me learn more about you
 use whoami;
+// YAY! Colors now exist!
+use owo_colors::OwoColorize;
 // inbuilt functions
 mod echo; // The echo command
 mod pwd; // The pwd command
@@ -12,14 +14,14 @@ fn main() -> std::io::Result<()> {
     let computer_name = whoami::devicename().unwrap_or_else(|_| "<unknown>".to_string());
 
     // Funny Ascii-art
-    println!("Welcome to...");
-    println!(r"         ___           ___    _____    ___ 
+    println!("\t{}", "Welcome to...".red());
+    println!("{}", r"         ___           ___    _____    ___ 
         (  _`\        (  _`\ (  _  ) /'_  )
         | ( (_)   _ _ | ( (_)| ( ) |(_)_) |
         | |  _  /'_` )| |  _ | | | | _(_ < 
         | (_( )( (_| || (_( )| (_) |( )_) |
-        (____/'`\__,_)(____/'(_____)`\____)");
-    println!("      The world's worst shell! Made by UnfamilarFork\n");
+        (____/'`\__,_)(____/'(_____)`\____)".green());
+    println!("{}\n", "  The world's worst shell! Made by UnfamilarFork".blue());
 
     // main loop
     loop {
@@ -44,7 +46,7 @@ fn main() -> std::io::Result<()> {
         // echo: repeats the user
         "echo" => {
             if input.len() == 1 { // Checks that echo can actually echo something
-                println!("echo couldn't run because no input was given");
+                println!("{}", "echo couldn't run because no input was given".red());
             } else {
                 echo::echo(input[1..].join(" ").to_string());
             }},
@@ -54,8 +56,9 @@ fn main() -> std::io::Result<()> {
         "exit" => break,
         // clear: clears terminal screen
         "clear" => print!("\x1B[2J\x1B[1;1H"), // Strange terminal code that clears it. Found off stack exchange
-        // Just in case anythiung else happened
-        _other => println!("That function was not found.")
+        "" => continue, // Empty text just continues the loop
+        // Just in case anything else happened
+        other => println!("\"{}\" {}", other.red(), "does not seem to be the name for any function currently avaliable.".red())
        }
     }
     println!("See ya next time!");
