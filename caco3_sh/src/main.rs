@@ -25,27 +25,27 @@ fn main() -> std::io::Result<()> {
         io::stdin()
             .read_line(&mut input)
             .expect("Dude, I think the program just crashed. WHAT DID YOU ENTER?");
-
+        
         // Split what the user entered
-        let tokens: Vec<&str> = input.trim().split(" ").collect();
+        let input: Vec<&str> = input.trim().split(" ").collect();
 
         // Match what the user wants to do with functions
-        if tokens[0] == "echo" {
+        if input[0].to_lowercase() == "echo" {
             // Check that the user didnt do something nefarious
-            if tokens.len() == 1 {
+            if input.len() == 1 {
                 println!("echo couldn't run because no input was given");
             } else {
-                echo::echo(tokens[1..].join(" ").to_string());
+                echo::echo(input[1..].join(" ").to_string());
             }
         }
-        else if tokens[0] == "pwd" {
+        else if input[0].to_lowercase() == "pwd" {
             // This literally just prints the working directory
             println!("{}", pwd::pwd());
         }
-        else if tokens[0] == "exit" {
+        else if input[0].to_lowercase() == "exit" {
             // Break the loop, causing program to exit
             break;
-        } else if tokens[0] == "clear" {
+        } else if input[0].to_lowercase() == "clear" {
             // Strange terminal code that clears the screen
             print!("\x1B[2J\x1B[1;1H");
         } else {
