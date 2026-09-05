@@ -18,5 +18,11 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build
       run: cd caco3_sh && cargo build --verbose
+    - name: Upload Artifacts
+      run: zip -r bin.zip caco3_sh/target/debug/
+    - uses: actions/upload-artifact@v7
+      with: 
+        path: bin.zip
+        archive: false
     - name: Run tests
       run: cd caco3_sh && cargo test --verbose
