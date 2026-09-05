@@ -29,28 +29,25 @@ fn main() -> std::io::Result<()> {
         // Split what the user entered
         let input: Vec<&str> = input.trim().split(" ").collect();
 
-        // Match what the user wants to do with functions
-        if input[0].to_lowercase() == "echo" {
-            // Check that the user didnt do something nefarious
-            if input.len() == 1 {
+       let input_0 = input[0].to_lowercase();
+       match input_0.as_str() {
+        // echo: repeats the user
+        "echo" => {
+            if input.len() == 1 { // Checks that echo can actually echo something
                 println!("echo couldn't run because no input was given");
             } else {
                 echo::echo(input[1..].join(" ").to_string());
-            }
-        }
-        else if input[0].to_lowercase() == "pwd" {
-            // This literally just prints the working directory
-            println!("{}", pwd::pwd());
-        }
-        else if input[0].to_lowercase() == "exit" {
-            // Break the loop, causing program to exit
-            break;
-        } else if input[0].to_lowercase() == "clear" {
-            // Strange terminal code that clears the screen
-            print!("\x1B[2J\x1B[1;1H");
-        } else {
-            println!("That function was not found.")
-        }
+            }},
+        // pwd: Prints current directory
+        "pwd" => println!("{}", pwd::pwd()),
+        // exit: closes CaCO3
+        "exit" => break,
+        // clear: clears terminal screen
+        "clear" => print!("\x1B[2J\x1B[1;1H"), // Strange terminal code that clears it. Found off stack exchange
+        // Just in case anythiung else happened
+        _other => println!("That function was not found.")
+       }
     }
+    println!("See ya next time!");
     Ok(())
 }
