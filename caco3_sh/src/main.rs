@@ -4,6 +4,7 @@ use std::io::{self, Write};
 use whoami;
 // inbuilt functions
 mod echo; // The echo command
+mod pwd; // The pwd command
 
 fn main() -> std::io::Result<()> {
     // Get info about the user and computer
@@ -32,11 +33,16 @@ fn main() -> std::io::Result<()> {
         if tokens[0] == "echo" {
             // Check that the user didnt do something nefarious
             if tokens.len() == 1 {
-                println!("echo couldn't run because no input was given")
+                println!("echo couldn't run because no input was given");
             } else {
                 echo::echo(tokens[1..].join(" ").to_string());
             }
-        } else if tokens[0] == "exit" {
+        }
+        else if tokens[0] == "pwd" {
+            // This literally just prints the working directory
+            println!("{}", pwd::pwd());
+        }
+        else if tokens[0] == "exit" {
             // Break the loop, causing program to exit
             break;
         } else if tokens[0] == "clear" {
