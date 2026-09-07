@@ -1,4 +1,4 @@
-name: Rust
+name: Rust-Windows
 
 on:
   push:
@@ -13,16 +13,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+    - name: Prepare
+      run: rustup target add x86_64-pc-windows-gnu
     - name: Build
-      run: cd caco3_sh && cargo build --verbose
+      run: cd caco3_sh && cargo build --target x86_64-pc-windows-gnu --verbose
     - name: Upload Artifacts
-      run: cd caco3_sh/target/ && zip -r bin.zip /debug/
+      run: cd caco3_sh/target/ && zip -r bin-windows.zip /debug/
     - uses: actions/upload-artifact@v7
       with: 
-        path: bin.zip
+        path: bin-windows.zip
         archive: false
     - name: Run tests
       run: cd caco3_sh && cargo test --verbose
