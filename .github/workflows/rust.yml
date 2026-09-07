@@ -17,7 +17,7 @@ jobs:
     - name: Build
       run: cd caco3_sh && cargo build --verbose
     - name: Upload Artifacts
-      run: cd /target/ && zip -r bin-linux.zip /debug/
+      run: cd /caco3_sh/target/ && zip -r bin-linux.zip /debug
     - uses: actions/upload-artifact@v7
       with: 
         path: bin-linux.zip
@@ -34,7 +34,7 @@ jobs:
     - name: Build
       run: cd caco3_sh && cargo build --target x86_64-pc-windows-gnu --verbose
     - name: Upload Artifacts
-      run: cd /target/ && zip -r bin-windows.zip /debug/
+      run: cd /caco3_sh/target/ && zip -r bin-windows.zip /debug
     - uses: actions/upload-artifact@v7
       with: 
         path: bin-windows.zip
