@@ -7,6 +7,7 @@ use owo_colors::OwoColorize;
 // inbuilt functions
 mod echo; // The echo command
 mod pwd; // The pwd command
+mod cd;
 
 fn main() -> std::io::Result<()> {
     // Get info about the user and computer
@@ -52,6 +53,16 @@ fn main() -> std::io::Result<()> {
             }},
         // pwd: Prints current directory
         "pwd" => println!("{}", pwd::pwd()),
+        // cd:change directory
+        "cd" => {
+            let cd_result = cd::change_directory(input[1..].join(" ").to_string(), current_path.display().to_string());
+            if cd_result == 0 || cd_result == 1 || cd_result == 2 {
+                continue;
+            }
+            else {
+                println!("{}", "The directory you are trying to change into is invalid or couldn't be found by cd.".red())
+            }
+        }
         // exit: closes CaCO3
         "exit" => break,
         // clear: clears terminal screen
