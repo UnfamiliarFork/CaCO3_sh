@@ -56,7 +56,7 @@ fn main() -> std::io::Result<()> {
         // cd:change directory
         "cd" => {
             let cd_result = cd::change_directory(input[1..].join(" ").to_string(), current_path.display().to_string());
-            if cd_result == 0 || cd_result == 1 || cd_result == 2 {
+            if cd_result == 0 || cd_result == 1 {
                 continue;
             }
             else {
@@ -69,7 +69,7 @@ fn main() -> std::io::Result<()> {
         "clear" => print!("\x1B[2J\x1B[1;1H"), // Strange terminal code that clears it. Found off stack exchange
         "" => continue, // Empty text just continues the loop
         // Just in case anything else happened
-        other => println!("\"{}\" {}", other.red(), "does not seem to be the name for any function currently avaliable.".red())
+        other => println!("{}", format!("{}{}{}{}", "\"", other.to_owned(), "\" ", "does not seem to be any currently acessible function. Please try again.").red())
        }
     }
     println!("See ya next time!");
