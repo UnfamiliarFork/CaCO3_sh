@@ -1,0 +1,43 @@
+name: Rust-Linux
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build4linux_x64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: cd caco3_sh && cargo build --verbose
+    - name: Upload Artifacts
+      run: cd /target/ && zip -r bin-linux.zip /debug/
+    - uses: actions/upload-artifact@v7
+      with: 
+        path: bin-linux.zip
+        archive: false
+    - name: Run tests
+      run: cd caco3_sh && cargo test --verbose
+
+  build4windows_x64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Prepare
+      run: sudo apt-get install mingw-w64 && rustup target add x86_64-pc-windows-gnu
+    - name: Build
+      run: cd caco3_sh && cargo build --target x86_64-pc-windows-gnu --verbose
+    - name: Upload Artifacts
+      run: cd /target/ && zip -r bin-windows.zip /debug/
+    - uses: actions/upload-artifact@v7
+      with: 
+        path: bin-windows.zip
+        archive: false
+    - name: Run tests
+      run: cd caco3_sh && cargo test --verbose
